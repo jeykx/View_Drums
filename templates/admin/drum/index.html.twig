@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Gérer les batteries' %}
+
+{% block body %}
+<div class="container mt-4">
+<h1> Gerer les batteries</h1>
+
+{%  for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+
+{% endfor %}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+    <th>Titre</th>
+    <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for drum in drums %}
+    <tr>
+    <td>{{ drum.title }}</td>
+    <td>
+    <a href="{{ path('admin.drum.edit', {id: drum.id}) }}" class="btn btn-secondary">Editer</a>
+    <form method="post" action="{{ path('admin.drum.delete', {id: drum.id}) }}" style="display: inline-block">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ drum.id) }}">
+        <button class="btn btn-danger"> Supprimer</button>
+    </form>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="text-right">
+ <a href="{{ path('admin.drum.new') }}" class="btn btn-primary">Ajouter une batterie</a>
+
+</div>
+
+</div>
+{% endblock %}
