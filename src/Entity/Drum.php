@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DrumRepository")
+ * @UniqueEntity("title")
  */
 class Drum
 {
@@ -19,6 +22,7 @@ class Drum
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255)
      */
     private $title;
 
@@ -29,6 +33,7 @@ class Drum
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=16, max=28)
      */
     private $dimension_gc;
 
