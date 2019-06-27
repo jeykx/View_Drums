@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Drum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Drum|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +21,15 @@ class DrumRepository extends ServiceEntityRepository
         parent::__construct($registry, Drum::class);
     }
     
+    /**
+     * @return Query
+     */
+    public function findAllVisibleQuery(): Query
+    {
+        return $this->findVisibleQuery()
+            ->getQuery();
+    }
+
 
     /**
      * @return Drum[]
@@ -26,9 +37,15 @@ class DrumRepository extends ServiceEntityRepository
     public function findlatest():array
     {
         return $this->createQueryBuilder('p')
-            ->setMaxResults(3)
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult();
+    }
+    
+
+    public function findVisibleQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p');
     }
 
     // /**

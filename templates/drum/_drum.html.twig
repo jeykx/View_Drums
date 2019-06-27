@@ -1,0 +1,10 @@
+<div class="card mb-4">
+<div class="card-body">
+    <h5 class="card-title">
+        <a href="{{ path('drum.show', {slug: drum.slug, id: drum.id }) }}">
+            {{ drum.title }}
+        </a>
+    <h5/>
+    <p class="card-text"> {{ drum.description | nl2br }} </p>
+</div>
+</div>

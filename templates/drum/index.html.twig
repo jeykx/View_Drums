@@ -5,5 +5,14 @@
 {% block body %}
 <div class="container">
     <h1>Liste des batteries</h1>
+
+    {% for drum in drums %}
+
+    {% include ("drum/_drum.html.twig") %}
+    
+    {% endfor %}
+</div>
+<div class="pagination">
+    {{ knp_pagination_render(drums) }}
 </div>
 {% endblock %}
