@@ -1,10 +1,16 @@
 <div class="card mb-4">
+
+{% if drum.filename %}
+    <img src="{{ vich_uploader_asset(drum, 'imageFile')  }}" alt="card-img-top" style="width: 100%; height: auto; font-size: 20%" class="img-responsive">
+
+{% endif %}
+   
+
 <div class="card-body">
     <h5 class="card-title">
         <a href="{{ path('drum.show', {slug: drum.slug, id: drum.id }) }}">
             {{ drum.title }}
         </a>
     <h5/>
-    <p class="card-text"> {{ drum.description | nl2br }} </p>
 </div>
 </div>

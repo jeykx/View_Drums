@@ -1,0 +1,8 @@
+liip_imagine:
+   filter_sets:
+      thumb:
+         quality: 70
+         filters:
+            thumbnail:
+               size: [50, 50]
+               mode: outbound

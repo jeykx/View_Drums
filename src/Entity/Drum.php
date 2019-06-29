@@ -6,10 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DrumRepository")
  * @UniqueEntity("title")
+ * @Vich\Uploadable()
  */
 class Drum
 {
@@ -19,6 +23,20 @@ class Drum
      * @ORM\Column(type="integer")
      */
     private $id;
+    
+    /**
+     * @var string|null
+     * @Orm\Column(type="string", length=255)
+     */
+    private $filename;
+    
+    /**
+     * @var File null
+     * @Assert\Image(
+     *         mimeTypes="image/jpeg")
+     * @Vich\UploadableField(mapping="property_image", fileNameProperty="filename")
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -61,6 +79,36 @@ class Drum
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $author;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bandname;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $link_band;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $saledrumkit;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $musicalstyle;
 
     public function __construct() {
 
@@ -175,6 +223,113 @@ class Drum
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+    /**
+     * @param null|string $filename
+     * @return Drum
+     */
+    public function setFilename(?string $filename)
+    {
+        $this->filename = $filename;
+    }
+    /**
+     * @return null|File
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+    /**
+     * @param null|File $imageFile
+     * @return Drum
+     */
+    public function setImageFile(?File $imageFile): Drum
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getBandname(): ?string
+    {
+        return $this->bandname;
+    }
+
+    public function setBandname(?string $bandname): self
+    {
+        $this->bandname = $bandname;
+
+        return $this;
+    }
+
+    public function getLinkBand(): ?string
+    {
+        return $this->link_band;
+    }
+
+    public function setLinkBand(?string $link_band): self
+    {
+        $this->link_band = $link_band;
+
+        return $this;
+    }
+
+    public function getSaledrumkit(): ?string
+    {
+        return $this->saledrumkit;
+    }
+
+    public function setSaledrumkit(?string $saledrumkit): self
+    {
+        $this->saledrumkit = $saledrumkit;
+
+        return $this;
+    }
+
+    public function getMusicalstyle(): ?string
+    {
+        return $this->musicalstyle;
+    }
+
+    public function setMusicalstyle(?string $musicalstyle): self
+    {
+        $this->musicalstyle = $musicalstyle;
 
         return $this;
     }

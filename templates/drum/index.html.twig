@@ -3,13 +3,13 @@
 {% block title 'Voir la liste des batteries' %}
 
 {% block body %}
-<div class="container">
-    <h1>Liste des batteries</h1>
-
+<div class="container mt-4">
+    <h1>Tous les drummers</h1>
+    <div class="row">
     {% for drum in drums %}
-
+<div class="col-md-4">
     {% include ("drum/_drum.html.twig") %}
-    
+    </div>
     {% endfor %}
 </div>
 <div class="pagination">

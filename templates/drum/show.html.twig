@@ -1,10 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container mt-4">
-    <h1> {{ drum.title }}</h1>
-    <p> {{ drum.description }}</p>
-</div>
+     <div class="container mt-4">
+     <div class="row">
+
+   {% if drum.filename %}
+      <div class="col-md-5" img-fluid >
+          <img src="{{ vich_uploader_asset(drum, 'imageFile')  }}" alt="card-img-top" style="width: 80%;">
+      </div>
+
+    {% endif %}
+         <div class="col-md-7">
+         <div class="card">
+            <div class="card-body">
+        <h5 class="card-title">
+                {{ drum.title }}
+        </h5>
+        <p><span style="font-weight:bold;"> Groupe : </span> {{ drum.bandname }}</p>
+        <p><span style="font-weight:bold;">  Genre : </span> {{ drum.musicalstyle }}</p>   
+        <p><span style="font-weight:bold;">Facebook :</span><a href="{{ drum.linkband }}"> {{ drum.linkband }}</a></p>
+        <p><span style="font-weight:bold;">  Matos : </span>  {{ drum.model }}</p>
+        <p> {{ drum.description }}</p>
+       </div>
+     </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block title 'Voir la liste des batteries' %}

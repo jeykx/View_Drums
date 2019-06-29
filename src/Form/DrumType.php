@@ -6,6 +6,7 @@ use App\Entity\Drum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class DrumType extends AbstractType
 {
@@ -13,12 +14,14 @@ class DrumType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description')
-            ->add('dimension_gc')
-            ->add('futs')
             ->add('model')
-            ->add('price')
-            ->add('woodtype')
+            ->add('description')
+            ->add('bandname')
+            ->add('musicalstyle')
+            ->add('link_band')
+            ->add('imageFile', FileType::class, [
+                'required' => false
+            ])
         ;
     }
 

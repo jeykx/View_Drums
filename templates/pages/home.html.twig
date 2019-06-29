@@ -2,24 +2,23 @@
 
 {% block body %}
 <div class="jumbotron text-center">
-    <h1>Bienvenue sur ViewsDrums.fr</h1>
-    <p> Car meme les batteurs ont droit à leur heures de gloire !</p>
+    <h1>Bienvenue sur ViewDrums.fr</h1>
+    <p> Premiière plateforme collaborative pour les batteurs</p>
 </div>
 
 <div class="container">
-<h2>Les batteries récentes</h2>
+<h2>Les nouveaux drummer</h2>
 <div class="row flex">
     {% for drum in drums %}
         <div class="col-3">
             <div class="card">
             <div class="card-body">
             <h5 class="card-title">
-                <a href="{{ path('drum.show', {id: drum.id, slug: drum.slug}) }}">{{ drum.title }}</a>
+                {{ drum.title }}
             </h5>
-            <p class="card-text"> {{ drum.dimensiongc }} pouces</p>
-            <p class="card-text"> Nombres de fut : {{ drum.futs }} </p>
-            <p class="card-text"> Type de bois :  {{ drum.woodtype }} </p>
-            <p class="card-text"> Prix d'achat :  {{ drum.formattedPrice }} € </p>
+            <img src="{{ vich_uploader_asset(drum, 'imageFile')  }}" alt="card-img-top" style="width: 100%; height: auto; font-size: 20%" class="img-responsive">
+            <a href="{{ path('drum.show', {id: drum.id, slug: drum.slug}) }}">En savoir plus</a>
+
             </div>
         </div>
         </div>
